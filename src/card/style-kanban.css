@@ -91,7 +91,6 @@
   background-color: #ccc;
 }
 
-/* Estilos para o modal de exclusão */
 .modal-delete {
   position: fixed;
   top: 50%;
@@ -126,11 +125,6 @@
   border-radius: 4px;
 }
 
-.modal-delete button.cancel {
-  background-color: #ccc; /* Cor de fundo cinza para o botão Cancelar */
-}
-
-/* Estilos para o modal de edição */
 .modal-edit {
   position: fixed;
   top: 50%;
@@ -162,12 +156,10 @@
   padding: 10px 20px;
   margin-right: 10px;
   border: none;
-  background-color: #007bff; /* Cor de fundo azul */
+  background-color: #007bff; 
   color: #fff;
   cursor: pointer;
   border-radius: 4px;
 }
 
-.modal-edit button.cancel {
-  background-color: #ccc; /* Cor de fundo cinza para o botão Cancelar */
-}
+

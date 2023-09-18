@@ -4,6 +4,8 @@ import { ApiCard } from "../services/card";
 import { deleteCard, editCard } from "../services/card/index";
 import { useState, useEffect } from "react";
 import { getCards } from "../services/card";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Card = {
   _id: number;
@@ -13,7 +15,6 @@ type Card = {
 };
 
 const KanbanBoard: React.FC = () => {
-  const [cards, setCards] = useState<Card[]>([]);
   const [userCards, setUserCards] = useState<Card[]>([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -23,8 +24,6 @@ const KanbanBoard: React.FC = () => {
   const [editCardId, setEditCardId] = useState<number | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editedContent, setEditedContent] = useState("");
-  
-
 
   useEffect(() => {
     async function fetchUserCards() {
@@ -57,7 +56,6 @@ const KanbanBoard: React.FC = () => {
       setEditedContent(cardToEdit.content);
     }
   };
-  
 
   const fecharModalEditar = () => {
     setEditCardId(null);
@@ -150,19 +148,51 @@ const KanbanBoard: React.FC = () => {
   const handleEditCard = async () => {
     if (editCardId !== null) {
       try {
-        await editCard(editCardId, title, content);
-        setUserCards((prevCards) =>
-          prevCards.map((card) =>
-            card._id === editCardId ? { ...card, content: editedContent } : card
-          )
-        );
+        const cardToEdit = userCards.find((card) => card._id === editCardId);
+
+        if (cardToEdit) {
+          const updatedCard = await editCard(editCardId, title, editedContent);
+
+          if (updatedCard) {
+            setUserCards((prevCards) =>
+              prevCards.map((card) =>
+                card._id === editCardId
+                  ? { ...card, content: updatedCard.content }
+                  : card
+              )
+            );
+
+            fecharModalEditar();
+
+            toast.success("Card editado com sucesso!", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          } else {
+            console.error(
+              "Erro ao editar o card: A API não retornou dados atualizados."
+            );
+            toast.error(
+              "Erro ao editar o card: A API não retornou dados atualizados.",
+              {
+                position: toast.POSITION.TOP_CENTER,
+              }
+            );
+          }
+        } else {
+          console.error("Card não encontrado para edição.");
+          toast.error("Card não encontrado para edição.", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
       } catch (error) {
         console.error("Erro ao editar o conteúdo do cartão:", error);
-      } finally {
-        fecharModalEditar();
+        toast.error("Erro ao editar o card.", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     }
   };
+
   const renderCards = (column: string) =>
     userCards
       .filter((userCards) => userCards.column === column)
@@ -238,10 +268,10 @@ const KanbanBoard: React.FC = () => {
           onRequestClose={fecharModalDeletar}
           contentLabel="Excluir Cartão"
         >
-          <h2>Excluir Cartão</h2>
-          <p>Tem certeza de que deseja excluir o cartão?</p>
+          <h2>EXCLUIR CARTÃO</h2>
+          <p>DESEJA REALMENTE EXCLUIR ESTE CARD?</p>
+          <button onClick={fecharModalDeletar}>Não</button>
           <button onClick={handleDeleteCard}>Sim</button>
-          <button onClick={fecharModalDeletar}>Cancelar</button>
         </Modal>
       )}
       {isEditModalOpen && (
@@ -251,7 +281,7 @@ const KanbanBoard: React.FC = () => {
           onRequestClose={fecharModalEditar}
           contentLabel="Editar Conteúdo do Cartão"
         >
-          <h2>Editar Conteúdo do Cartão</h2>
+          <h2>EDITAR CONTEÚDO DO CARD</h2>
           <textarea
             name="editedContent"
             value={editedContent}
