@@ -24,6 +24,7 @@ const KanbanBoard: React.FC = () => {
   const [editCardId, setEditCardId] = useState<number | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editedContent, setEditedContent] = useState("");
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchUserCards() {
@@ -62,8 +63,20 @@ const KanbanBoard: React.FC = () => {
     setIsEditModalOpen(false);
     setEditedContent("");
   };
+  const abrirAlertModal = () => {
+    setIsAlertModalOpen(true);
+  };
+
+  const fecharAlertModal = () => {
+    setIsAlertModalOpen(false);
+  };
 
   const addCard = async () => {
+    if (title.trim() === "" || content.trim() === "") {
+      abrirAlertModal();
+      return;
+    }
+
     try {
       const data = await ApiCard(title, content);
       const newCard = {
@@ -261,6 +274,19 @@ const KanbanBoard: React.FC = () => {
         <h2>Done</h2>
         {renderCards("DONE")}
       </div>
+      {isAlertModalOpen && (
+        <Modal
+          className="modal-alert"
+          isOpen={isAlertModalOpen}
+          onRequestClose={fecharAlertModal}
+          contentLabel="Alerta"
+        >
+          <h2>Alerta</h2>
+          <p>Por favor, preencha todos os campos antes de adicionar um card.</p>
+          <button onClick={fecharAlertModal}>OK</button>
+        </Modal>
+      )}
+
       {isDeleteModalOpen && (
         <Modal
           className="modal-delete"
