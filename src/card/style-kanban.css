@@ -1,0 +1,173 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-field {
+  border-radius: 25px;
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 16rem;
+  height: 2rem;
+  border: 1px solid #3a72f8;
+  outline: none;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.textarea-field {
+  border-radius: 25px;
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 16rem;
+  height: 7rem;
+  border: none;
+  outline: none;
+  border: 1px solid #3a72f8;
+  font-size: 20px;
+}
+
+.submit-button {
+  border-radius: 4px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #3a72f8;
+  color: #fff;
+  cursor: pointer;
+}
+
+.kanban-board {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: bold;
+}
+
+.column {
+  flex: 1;
+  padding: 100px;
+  background-color: #8789ef46;
+  border-radius: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.column h2 {
+  margin-bottom: 30px;
+  color: #3a72f8;
+  text-align: center;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 18rem;
+  height: 14rem;
+  font-size: 15px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.card-actions button {
+  background-color: #e0e0e0;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #3a72f8;
+  color: #fff;
+}
+
+.card-actions button:hover {
+  background-color: #ccc;
+}
+
+/* Estilos para o modal de exclusão */
+.modal-delete {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.modal-delete h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.modal-delete p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.modal-delete button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  background-color: #3a72f8;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.modal-delete button.cancel {
+  background-color: #ccc; /* Cor de fundo cinza para o botão Cancelar */
+}
+
+/* Estilos para o modal de edição */
+.modal-edit {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.modal-edit h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.modal-edit textarea {
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.modal-edit button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  background-color: #007bff; /* Cor de fundo azul */
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.modal-edit button.cancel {
+  background-color: #ccc; /* Cor de fundo cinza para o botão Cancelar */
+}
