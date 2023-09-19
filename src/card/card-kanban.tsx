@@ -107,7 +107,10 @@ const KanbanBoard: React.FC = () => {
         if (card._id === cardId) {
           switch (direction) {
             case "left":
-              return { ...card, column: getPreviousColumn(card.column) };
+              if (card.column !== "TODO") {
+                return { ...card, column: getPreviousColumn(card.column) };
+              }
+              break;
             case "right":
               return { ...card, column: getNextColumn(card.column) };
             default:
@@ -216,12 +219,14 @@ const KanbanBoard: React.FC = () => {
           <div className="card-actions">
             {column !== "" && (
               <>
-                <button
-                  className="button-left"
-                  onClick={() => moveCard(card._id, "left")}
-                >
-                  &larr;
-                </button>
+                {column !== "TODO" && (
+                  <button
+                    className="button-left"
+                    onClick={() => moveCard(card._id, "left")}
+                  >
+                    &larr;
+                  </button>
+                )}
                 <button onClick={() => abrirModalDeletar(card._id)}>
                   Excluir
                 </button>
